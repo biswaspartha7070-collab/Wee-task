@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>1.0000</priority>
+  </url>
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/index.html</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/history.html</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/statistics.html</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/profile.html</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+  <url>
+       <loc>https://biswaspartha7070-collab.github.io/Wee-task/settings.html</loc>
+       <lastmod>2026-08-27T16:45:56+00:00</lastmod>
+       <changefreq>daily</changefreq>
+       <priority>0.8000</priority>
+  </url>
+</urlset>
