@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07080d">
+<title>Wee Routine — Dashboard</title>
+
+<style>
+:root{
+    --bg:#07080d;
+    --card:#10121a;
+    --card2:#151824;
+    --line:rgba(255,255,255,.08);
+    --text:#f5f7fb;
+    --muted:#8e95a5;
+    --accent:#8065ff;
+    --accent2:#a893ff;
+    --green:#35d58a;
+    --red:#ff5f7d;
+    --yellow:#ffc857;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 15% 0%,rgba(128,101,255,.15),transparent 30%),
+        radial-gradient(circle at 100% 25%,rgba(53,213,138,.07),transparent 25%),
+        var(--bg);
+    color:var(--text);
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+.app{
+    width:min(100%,560px);
+    margin:auto;
+    padding-bottom:105px;
+}
+
+header{
+    padding:24px 18px 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    gap:11px;
+    align-items:center;
+}
+
+.mark{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--accent),#4d3bc2);
+    display:grid;
+    place-items:center;
+    font-weight:900;
+    box-shadow:0 12px 35px rgba(128,101,255,.28);
+}
+
+.brand h1{
+    font-size:19px;
+    letter-spacing:-.5px;
+}
+
+.brand p{
+    font-size:10px;
+    color:var(--muted);
+    margin-top:2px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    border-radius:14px;
+    color:var(--text);
+}
+
+main{
+    padding:0 16px;
+}
+
+.hero{
+    margin:10px 2px 18px;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:25px;
+    background:linear-gradient(
+        135deg,
+        rgba(128,101,255,.14),
+        rgba(255,255,255,.025)
+    );
+    box-shadow:0 20px 60px rgba(0,0,0,.22);
+}
+
+.eyebrow{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--muted);
+}
+
+.big{
+    font-size:40px;
+    font-weight:850;
+    letter-spacing:-2px;
+    margin-top:4px;
+}
+
+.big small{
+    font-size:12px;
+    color:var(--accent2);
+    letter-spacing:0;
+}
+
+.progress{
+    height:7px;
+    background:rgba(255,255,255,.07);
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:17px;
+}
+
+.bar{
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition:.45s;
+}
+
+.progress-row{
+    display:flex;
+    justify-content:space-between;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:8px;
+}
+
+.grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:17px;
+}
+
+.stat{
+    padding:12px 7px;
+    border-radius:15px;
+    background:rgba(255,255,255,.045);
+    text-align:center;
+    border:1px solid rgba(255,255,255,.035);
+}
+
+.stat strong{
+    font-size:18px;
+    display:block;
+}
+
+.stat span{
+    font-size:9px;
+    color:var(--muted);
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 2px 12px;
+}
+
+.section-title h2{
+    font-size:17px;
+}
+
+.section-title span{
+    font-size:10px;
+    color:var(--muted);
+}
+
+.add-box{
+    display:flex;
+    gap:8px;
+}
+
+input{
+    flex:1;
+    min-width:0;
+    height:52px;
+    padding:0 16px;
+    border-radius:16px;
+    border:1px solid var(--line);
+    outline:none;
+    color:var(--text);
+    background:var(--card);
+}
+
+input:focus{
+    border-color:rgba(128,101,255,.65);
+    box-shadow:0 0 0 3px rgba(128,101,255,.1);
+}
+
+.add{
+    width:52px;
+    border:0;
+    border-radius:16px;
+    background:linear-gradient(135deg,var(--accent),#6049d8);
+    color:white;
+    font-size:24px;
+}
+
+.list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.task{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:14px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,#11131b,#0d0f15);
+}
+
+.task-left{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.task-mark{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    border-radius:13px;
+    background:rgba(128,101,255,.11);
+    display:grid;
+    place-items:center;
+    color:var(--accent2);
+    font-size:15px;
+    font-weight:800;
+}
+
+.task-name{
+    font-size:13px;
+    font-weight:650;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.task-state{
+    color:var(--yellow);
+    font-size:9px;
+    margin-top:4px;
+}
+
+.actions{
+    display:flex;
+    gap:6px;
+}
+
+.action{
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:11px;
+    font-size:15px;
+}
+
+.done{
+    color:var(--green);
+    background:rgba(53,213,138,.1);
+}
+
+.reject{
+    color:var(--red);
+    background:rgba(255,95,125,.1);
+}
+
+.empty{
+    text-align:center;
+    padding:28px 15px;
+    color:var(--muted);
+    font-size:12px;
+    border:1px dashed var(--line);
+    border-radius:18px;
+}
+
+.bottom{
+    position:fixed;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(510px,calc(100% - 30px));
+    height:66px;
+    border-radius:22px;
+    border:1px solid var(--line);
+    background:rgba(15,16,23,.88);
+    backdrop-filter:blur(20px);
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    z-index:50;
+    box-shadow:0 20px 55px rgba(0,0,0,.5);
+}
+
+.nav{
+    text-align:center;
+    color:var(--muted);
+    font-size:18px;
+    min-width:55px;
+}
+
+.nav span{
+    display:block;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.nav.active{
+    color:var(--accent2);
+}
+
+.toast{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translate(-50%,-15px);
+    opacity:0;
+    background:#181a24;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px 17px;
+    font-size:12px;
+    z-index:100;
+    transition:.3s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(10px);
+    z-index:90;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+}
+
+.modal{
+    width:min(100%,390px);
+    background:#11131b;
+    border:1px solid var(--line);
+    border-radius:27px;
+    padding:28px;
+    text-align:center;
+}
+
+.sound-circle{
+    width:64px;
+    height:64px;
+    margin:0 auto 17px;
+    border-radius:20px;
+    background:linear-gradient(135deg,var(--accent),#4d3bc2);
+    display:grid;
+    place-items:center;
+    font-weight:900;
+    font-size:20px;
+}
+
+.modal h2{
+    font-size:21px;
+}
+
+.modal p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+    margin:10px 0 20px;
+}
+
+.enable{
+    width:100%;
+    height:50px;
+    border:0;
+    border-radius:15px;
+    color:white;
+    font-weight:700;
+    background:linear-gradient(135deg,var(--accent),#6049d8);
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="brand">
+        <div class="mark">W</div>
+        <div>
+            <h1>wee routine</h1>
+            <p>Daily discipline system</p>
+        </div>
+    </div>
+
+    <button class="icon-btn" onclick="toggleSound()" id="soundButton">
+        ON
+    </button>
+</header>
+
+<main>
+
+<section class="hero">
+
+    <div class="eyebrow">Weekly points</div>
+
+    <div class="big">
+        <span id="points">0</span>
+        <small>PTS</small>
+    </div>
+
+    <div class="progress">
+        <div class="bar" id="progressBar"></div>
+    </div>
+
+    <div class="progress-row">
+        <span>This week</span>
+        <span id="progressText">0 completed</span>
+    </div>
+
+    <div class="grid3">
+
+        <div class="stat">
+            <strong id="completed">0</strong>
+            <span>Completed</span>
+        </div>
+
+        <div class="stat">
+            <strong id="pending">0</strong>
+            <span>Pending</span>
+        </div>
+
+        <div class="stat">
+            <strong id="rejected">0</strong>
+            <span>Rejected</span>
+        </div>
+
+    </div>
+
+</section>
+
+<div class="section-title">
+    <h2>New routine</h2>
+    <span>+10 points</span>
+</div>
+
+<div class="add-box">
+    <input
+        id="routineInput"
+        type="text"
+        maxlength="60"
+        placeholder="Enter routine name"
+        autocomplete="off"
+    >
+
+    <button class="add" onclick="addRoutine()">+</button>
+</div>
+
+<div class="section-title">
+    <h2>Today's routine</h2>
+    <span id="today"></span>
+</div>
+
+<div class="list" id="routineList"></div>
+
+</main>
+
+</div>
+
+<nav class="bottom">
+
+    <a class="nav active" href="index.html">
+        W
+        <span>Home</span>
+    </a>
+
+    <a class="nav" href="history.html">
+        H
+        <span>History</span>
+    </a>
+
+    <a class="nav" href="statistics.html">
+        S
+        <span>Stats</span>
+    </a>
+
+    <a class="nav" href="profile.html">
+        P
+        <span>Profile</span>
+    </a>
+
+    <a class="nav" href="settings.html">
+        A
+        <span>Settings</span>
+    </a>
+
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="overlay" id="soundOverlay">
+
+    <div class="modal">
+
+        <div class="sound-circle">W</div>
+
+        <h2>Enable Sound</h2>
+
+        <p>
+            Wee Routine uses sound notifications for
+            reminders, completed routines and rejected routines.
+            Enable sound once to activate the audio system.
+        </p>
+
+        <button class="enable" onclick="enableSound()">
+            Enable Sound
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+const KEY="weeRoutineData";
+
+let data={
+    points:0,
+    routines:[],
+    history:[]
+};
+
+let audioContext=null;
+let soundEnabled=false;
+
+function load(){
+    const saved=localStorage.getItem(KEY);
+
+    if(saved){
+        try{
+            data=JSON.parse(saved);
+        }catch(e){}
+    }
+
+    data.points=Number(data.points)||0;
+    data.routines=Array.isArray(data.routines)?data.routines:[];
+    data.history=Array.isArray(data.history)?data.history:[];
+}
+
+function save(){
+    localStorage.setItem(KEY,JSON.stringify(data));
+}
+
+function enableSound(){
+
+    try{
+        audioContext=new(
+            window.AudioContext ||
+            window.webkitAudioContext
+        )();
+
+        if(audioContext.state==="suspended"){
+            audioContext.resume();
+        }
+
+        soundEnabled=true;
+
+        document.getElementById("soundOverlay").style.display="none";
+        document.getElementById("soundButton").textContent="ON";
+
+        tone(700,.08);
+
+    }catch(e){
+        showToast("Audio unavailable");
+    }
+}
+
+function toggleSound(){
+
+    if(!soundEnabled){
+        enableSound();
+        return;
+    }
+
+    soundEnabled=false;
+    document.getElementById("soundButton").textContent="OFF";
+}
+
+function tone(freq,duration,type="sine"){
+
+    if(!soundEnabled || !audioContext)return;
+
+    const osc=audioContext.createOscillator();
+    const gain=audioContext.createGain();
+
+    osc.type=type;
+    osc.frequency.value=freq;
+
+    gain.gain.setValueAtTime(
+        .0001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .12,
+        audioContext.currentTime+.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .0001,
+        audioContext.currentTime+duration
+    );
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+
+    osc.stop(
+        audioContext.currentTime+duration
+    );
+}
+
+function successSound(){
+
+    tone(523,.12);
+    setTimeout(()=>tone(659,.12),100);
+    setTimeout(()=>tone(784,.18),200);
+}
+
+function rejectSound(){
+
+    tone(260,.15,"sawtooth");
+    setTimeout(()=>tone(180,.22,"sawtooth"),150);
+}
+
+function addRoutine(){
+
+    const input=document.getElementById("routineInput");
+    const name=input.value.trim();
+
+    if(!name){
+        showToast("Enter a routine name");
+        return;
+    }
+
+    data.routines.unshift({
+        id:Date.now(),
+        name:name,
+        status:"pending",
+        createdAt:new Date().toISOString()
+    });
+
+    input.value="";
+
+    save();
+    render();
+
+    tone(650,.08);
+
+    showToast("Routine added");
+}
+
+function completeRoutine(id){
+
+    const task=data.routines.find(x=>x.id===id);
+
+    if(!task || task.status!=="pending")return;
+
+    task.status="completed";
+
+    data.points+=10;
+
+    data.history.unshift({
+        id:Date.now(),
+        name:task.name,
+        result:"completed",
+        points:10,
+        date:new Date().toISOString()
+    });
+
+    save();
+    render();
+
+    successSound();
+
+    showToast("Completed — +10 points");
+}
+
+function rejectRoutine(id){
+
+    const task=data.routines.find(x=>x.id===id);
+
+    if(!task || task.status!=="pending")return;
+
+    task.status="rejected";
+
+    data.history.unshift({
+        id:Date.now(),
+        name:task.name,
+        result:"rejected",
+        points:0,
+        date:new Date().toISOString()
+    });
+
+    save();
+    render();
+
+    rejectSound();
+
+    showToast("Routine rejected");
+}
+
+function weekStart(){
+
+    const d=new Date();
+    const day=d.getDay();
+    const diff=day===0?6:day-1;
+
+    d.setHours(0,0,0,0);
+    d.setDate(d.getDate()-diff);
+
+    return d;
+}
+
+function weeklyCompleted(){
+
+    const start=weekStart();
+
+    return data.history.filter(x =>
+        x.result==="completed" &&
+        new Date(x.date)>=start
+    ).length;
+}
+
+function render(){
+
+    const list=document.getElementById("routineList");
+
+    list.innerHTML="";
+
+    if(!data.routines.length){
+
+        list.innerHTML=`
+            <div class="empty">
+                No routines created yet.
+            </div>
+        `;
+
+    }else{
+
+        data.routines.forEach(task=>{
+
+            const div=document.createElement("div");
+
+            div.className="task";
+
+            let state="Pending";
+
+            if(task.status==="completed"){
+                state="Completed";
+            }
+
+            if(task.status==="rejected"){
+                state="Rejected";
+            }
+
+            div.innerHTML=`
+
+                <div class="task-left">
+
+                    <div class="task-mark">
+                        ${task.status==="completed"?"✓":
+                          task.status==="rejected"?"×":"W"}
+                    </div>
+
+                    <div>
+                        <div class="task-name">
+                            ${escapeHTML(task.name)}
+                        </div>
+
+                        <div class="task-state">
+                            ${state}
+                        </div>
+                    </div>
+
+                </div>
+
+                ${
+                    task.status==="pending"
+                    ?
+                    `<div class="actions">
+
+                        <button
+                            class="action done"
+                            onclick="completeRoutine(${task.id})">
+                            ✓
+                        </button>
+
+                        <button
+                            class="action reject"
+                            onclick="rejectRoutine(${task.id})">
+                            ×
+                        </button>
+
+                    </div>`
+                    :
+                    ""
+                }
+
+            `;
+
+            list.appendChild(div);
+        });
+    }
+
+    const completed=data.history.filter(
+        x=>x.result==="completed"
+    ).length;
+
+    const rejected=data.history.filter(
+        x=>x.result==="rejected"
+    ).length;
+
+    const pending=data.routines.filter(
+        x=>x.status==="pending"
+    ).length;
+
+    const weekly=weeklyCompleted();
+
+    document.getElementById("points").textContent=data.points;
+    document.getElementById("completed").textContent=completed;
+    document.getElementById("rejected").textContent=rejected;
+    document.getElementById("pending").textContent=pending;
+
+    document.getElementById("progressText").textContent=
+        weekly+" completed";
+
+    const total=weekly+pending;
+
+    document.getElementById("progressBar").style.width=
+        total ? Math.min((weekly/total)*100,100)+"%" : "0%";
+}
+
+function escapeHTML(value){
+
+    return value
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+function showToast(text){
+
+    const toast=document.getElementById("toast");
+
+    toast.textContent=text;
+    toast.classList.add("show");
+
+    clearTimeout(window.toastTimer);
+
+    window.toastTimer=setTimeout(()=>{
+        toast.classList.remove("show");
+    },1800);
+}
+
+document.getElementById("today").textContent=
+    new Date().toLocaleDateString("en-IN",{
+        day:"numeric",
+        month:"short"
+    });
+
+document.getElementById("routineInput")
+    .addEventListener("keydown",e=>{
+        if(e.key==="Enter")addRoutine();
+    });
+
+load();
+render();
+</script>
+
+</body>
+</html>
